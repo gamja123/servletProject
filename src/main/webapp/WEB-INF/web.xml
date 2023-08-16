@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>ServletProject</display-name>
+
+  <context-param>
+	<param-name>company</param-name>
+	<param-value>Global In</param-value>
+</context-param>
+
+<context-param>
+	<param-name>manager</param-name>
+	<param-value>gil dong Hong</param-value>
+</context-param>
+ 
+
+<!--  
+<servlet>
+
+  <servlet-name>InitParam</servlet-name>
+  <servlet-class>com.sample.InitParam</servlet-class>
+  <init-param>
+  <param-name>tel</param-name>
+  <param-value>010-1111-1234</param-value>
+  </init-param>
+  <init-param>
+  <param-name>email</param-name>
+  <param-value>hon@naver.com</param-value>
+  </init-param>
+  
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>InitParam</servlet-name>
+  <url-pattern>/InitParam</url-pattern>
+  </servlet-mapping>
+
+ -->
+
+  
+<!-- 
+<servlet>
+  <servlet-name>MyFirst</servlet-name>
+  <servlet-class>com.sample.MyFirstSevlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>MyFirst</servlet-name>
+  <url-pattern>/MyFirst</url-pattern>
+  </servlet-mapping>
+ -->
+<!-- 
+  <servlet>
+  <servlet-name>LifeCycle</servlet-name>
+  <servlet-class>com.test.LifeCycle</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>LifeCycle</servlet-name>
+  <url-pattern>/LifeCycle</url-pattern>
+  </servlet-mapping>
+  -->
+  <!-- 
+  <servlet>
+  <servlet-name>LoginServlet</servlet-name>
+  <servlet-class>com.test.LoginServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>LoginServlet</servlet-name>
+  <url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+   -->
+   <!-- 
+   <servlet>
+  <servlet-name>Sport</servlet-name>
+  <servlet-class>com.test.SportServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>Sport</servlet-name>
+  <url-pattern>/Sport</url-pattern>
+  </servlet-mapping>
+    -->
+     <!-- 
+    <servlet>
+  <servlet-name>Member</servlet-name>
+  <servlet-class>com.test.MemberServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>Member</servlet-name>
+  <url-pattern>/Member</url-pattern>
+  </servlet-mapping>
+       -->
+       
+ <!--       <servlet>
+  <servlet-name>VisitInsert</servlet-name>
+  <servlet-class>com.bbs.VisitInsert</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>VisitInsert</servlet-name>
+  <url-pattern>/VisitInsert</url-pattern>
+  </servlet-mapping>
+  
+  
+       <servlet>
+  <servlet-name>VisitList</servlet-name>
+  <servlet-class>com.bbs.VisitList</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>VisitList</servlet-name>
+  <url-pattern>/VisitList</url-pattern>
+  </servlet-mapping> -->
+  
+  <!-- 에러 코드 페이지 등록 -->
+  
+  <error-page>
+  <error-code>404</error-code>
+  <location>/error/error404.jsp</location>
+  </error-page>
+  
+ <!--  <error-page>
+  <error-code>500</error-code>
+  <location>/error/error500.jsp</location>
+  </error-page> -->
+  
+  <error-page>
+	<exception-type>java.lang.NullPointerException</exception-type>
+	<location>/error/errorNullPotiner.jsp</location>  
+  </error-page>
+  
+  <session-config>
+  	<session-timeout>1</session-timeout>
+  </session-config>
+  <!-- 분단위 -->
+  
+  <!-- <servlet>
+  <servlet-name>PieChartServlet</servlet-name>
+  <servlet-class>com.chart.PieChartServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>PieChartServlet</servlet-name>
+  <url-pattern>/PieChartServlet</url-pattern>
+  </servlet-mapping> -->
+  
+  <!-- <servlet>
+  <servlet-name>XYPlotServlet</servlet-name>
+  <servlet-class>com.chart.XYPlotServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>XYPlotServlet</servlet-name>
+  <url-pattern>/XYPlotServlet</url-pattern>
+  </servlet-mapping>
+   -->
+  
+  
+  
+  <jsp-config>
+  	<taglib>
+  		<taglib-uri>/WEB-INF/tlds/el-functions.tld</taglib-uri>
+  		<taglib-location>/WEB-INF/tlds/el-functions.tld</taglib-location>
+  	</taglib>
+  </jsp-config>
+  
+  <servlet>
+  <servlet-name>mvctwo</servlet-name>
+  <servlet-class>mvc.control.ControlServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>mvctwo</servlet-name>
+  <url-pattern>*.md</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <servlet>
+  	<servlet-name>ConURI</servlet-name>
+  	<servlet-class>mvc.Controller</servlet-class>
+  	<init-param>
+  		<param-name>propertyConfig</param-name>
+  		<param-value>CommandMVC.properties</param-value>
+  	</init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ConURI</servlet-name>
+  	<url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+  <servlet-name>myControl</servlet-name>
+  <servlet-class>mvcmem.control.ControlServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>myControl</servlet-name>
+  <url-pattern>*.mdo</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+  	<servlet-name>Controller</servlet-name>
+  	<servlet-class>board.controller.ControllerAction</servlet-class>
+  	<init-param>
+  		<param-name>proConfig</param-name>
+  		<param-value>CommandPro.properties</param-value>
+  	</init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Controller</servlet-name>
+  	<url-pattern>*.bdo</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</web-app>
