@@ -19,6 +19,9 @@
 
 <table width="700">
 	<tr>
+		<td align="left" bgcolor="${value_c }">
+			<a href="/board/list.bdo">전체목록</a>
+		</td>
 		<td align="right" bgcolor="${value_c }">
 			<a href="/board/writeForm.bdo">글쓰기</a>
 		</td>
@@ -118,27 +121,44 @@
 	</c:if>
 	
 	<c:if test="${startPage > pageBlock }">
-		<a href="/board/list.bdo?pageNum=${startPage-pageBlock }">[이전]</a>
+		<%-- <a href="/board/list.bdo?pageNum=${startPage-pageBlock }">[이전]</a> --%>
+		<a href="#" onclick="frm_sub(${startPage-pageBlock})">[이전]</a> 
 	</c:if>
 	
 	<c:forEach var="i" begin="${startPage }" end="${endPage }">
-		<a href="/board/list.bdo?pageNum=${i }">[${i }]</a>		
+		<%-- <a href="/board/list.bdo?pageNum=${i }">[${i }]</a> --%>		
+		<a href="#" onclick="frm_sub(${i})">[${i}]</a> 
 	</c:forEach>
 	
 	<c:if test="${endPage < pageCount }">
-		<a href="/board/list.bdo?pageNum=${startPage+pageBlock }">[다음]</a>
+		<%-- <a href="/board/list.bdo?pageNum=${startPage+pageBlock }">[다음]</a> --%>
+		<a href="#" onclick="frm_sub(${startPage+pageBlock})">[다음]</a> 
 	</c:if>
 	
 </c:if>
 
+<br><br>
+
+<form action="" method="post" name="i_frm">
+	<input type="hidden" name="find_box" value="${find_box }">
+	<input type="hidden" name="find" value="${find }">
+</form>
+
+
+
+
+
+
+
 <%--검색창폼 --%>
-<form action="searchList.jsp" method="post">
-<select name="searchField">
+<!-- <form action="searchList.jsp" method="post"> -->
+<form action="/board/list.bdo" method="post" name="find_frm" onsubmit="return check()">
+<select name="find" size="1">
 	<option value="writer">작성자</option>
 	<option value="subject">제목</option>
 	<option value="content">내용</option>
-</select>
-<input type="text" name="searchText">
+</select>&nbsp;
+<input type="text" name="find_box">&nbsp;
 <input type="submit" value="검색">
 </form>
 

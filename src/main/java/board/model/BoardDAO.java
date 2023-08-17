@@ -24,7 +24,8 @@ public class BoardDAO {
 	}
 	
 	//게시판 메소드 시작
-	public int getArticleCount() {//검색기능 오버로딩
+	//전체 글 개수 가져오는
+	public int getArticleCount(String find,String find_box) {//검색기능 오버로딩
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -36,7 +37,16 @@ public class BoardDAO {
 			
 			conn = ConnUtil.getConnection();
 			
-			pstmt = conn.prepareStatement("select count(*) from board");
+			if(find.equals("writer")) {
+				pstmt = conn.prepareStatement("select count(*) from board where writer=?");
+				pstmt.setString(1, find_box);
+			}else if(find.equals("subject")) {
+				pstmt = conn.prepareStatement("select count(*) from board where subject like '%"+find_box+"%'");
+			}else if(find.equals("content")) {
+				pstmt = conn.prepareStatement("select count(*) from board where content like '%"+find_box+"%'");
+			}else {
+				pstmt = conn.prepareStatement("select count(*) from board");
+			}
 			
 			rs = pstmt.executeQuery();
 			if(rs.next()) { 
@@ -70,7 +80,7 @@ public class BoardDAO {
 	}//end
 	
 	
-	public List<BoardVO> getArticles(int start, int end){//수정1 검색 오버로딩
+	public List<BoardVO> getArticles(int start, int end,String find,String find_box){//수정1 검색 오버로딩
 		
 		Connection conn = null;
 		PreparedStatement pstmt= null;
@@ -81,11 +91,40 @@ public class BoardDAO {
 		try {
 			conn = ConnUtil.getConnection();
 			//수정2
+			StringBuffer sql = new StringBuffer();//문자열만 저장하는 임시 공간
+			
+			sql.append("select * from ");
+			sql.append("(select rownum rnum, num, writer, email, subject, pass, regdate, readcount, ref, step, depth, content, ip from ");
+			
+			if(find.equals("writer")) {//검색 조건이 작성자일 경우
+				sql.append("(select * from board where writer=? order by ref desc, step asc)) where rnum >= ? and rnum <=?");
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setString(1, find_box);
+				pstmt.setInt(2, start );
+				pstmt.setInt(3, end );
+			}else if(find.equals("subject")) {//검색 조건이 제목일 경우
+				sql.append("(select * from board where subject like '%"+find_box+"%' order by ref desc, step asc)) where rnum >= ? and rnum <=?");
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setInt(1, start );
+				pstmt.setInt(2, end );
+			}else if(find.equals("content")) {//검색 조건이 내용일 경우
+				sql.append("(select * from board where content like '%"+find_box+"%' order by ref desc, step asc)) where rnum >= ? and rnum <=?");
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setInt(1, start );
+				pstmt.setInt(2, end );
+			}else {//검색조건 없음
+				sql.append("(select * from board order by ref desc, step asc)) where rnum >= ? and rnum <=?");
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setInt(1, start );
+				pstmt.setInt(2, end );
+			}
+			
+			/*
 			String sql = "select * from (select rownum rnum, num, writer, email, subject, pass, regdate, readcount, ref, step, depth, content, ip from (select * from board order by ref desc, step asc)) where rnum >= ? and rnum <=?";
 			pstmt = conn.prepareStatement(sql);
-			
 			pstmt.setInt(1, start );
 			pstmt.setInt(2, end );
+			*/
 			
 			rs= pstmt.executeQuery();
 			
